@@ -1,0 +1,52 @@
+<template>
+    <lightning-card title="Employee Leave Management System" icon-name="standard:event">
+        <div class="slds-m-around_medium">
+            
+            <!-- Leave Request Form -->
+            <lightning-layout multiple-rows>
+                <lightning-layout-item size="12" padding="around-small">
+                    <h3 class="slds-text-heading_small slds-m-bottom_small">Submit New Leave Request</h3>
+                </lightning-layout-item>
+
+                <lightning-layout-item size="12" medium-device-size="6" padding="around-small">
+                    <lightning-input label="Employee Name" value={employeeName} onchange={handleInputChange} data-id="Employee_Name" required></lightning-input>
+                </lightning-layout-item>
+                <lightning-layout-item size="12" medium-device-size="6" padding="around-small">
+                    <lightning-input type="email" label="Employee Email" value={employeeEmail} onchange={handleInputChange} data-id="Employee_Email" required></lightning-input>
+                </lightning-layout-item>
+                <lightning-layout-item size="12" medium-device-size="6" padding="around-small">
+                    <lightning-combobox label="Leave Type" value={leaveType} options={leaveTypeOptions} onchange={handleInputChange} data-id="Leave_Type__c" required></lightning-combobox>
+                </lightning-layout-item>
+                <lightning-layout-item size="12" medium-device-size="6" padding="around-small">
+                    <lightning-input type="date" label="Start Date" value={startDate} onchange={handleInputChange} data-id="Start_Date__c" required></lightning-input>
+                </lightning-layout-item>
+                <lightning-layout-item size="12" medium-device-size="6" padding="around-small">
+                    <lightning-input type="date" label="End Date" value={endDate} onchange={handleInputChange} data-id="End_Date__c" required></lightning-input>
+                </lightning-layout-item>
+                <lightning-layout-item size="12" medium-device-size="6" padding="around-small">
+                    <lightning-input type="number" label="Calculated Duration (Days)" value={duration} readonly></lightning-input>
+                </lightning-layout-item>
+                <lightning-layout-item size="12" padding="around-small">
+                    <lightning-textarea label="Reason" value={reason} onchange={handleInputChange} data-id="Reason__c" required></lightning-textarea>
+                </lightning-layout-item>
+                <lightning-layout-item size="12" padding="around-small">
+                    <lightning-button variant="brand" label="Submit Request" onclick={handleSubmit}></lightning-button>
+                </lightning-layout-item>
+            </lightning-layout>
+
+            <lightning-combobox class="slds-m-top_large" label="Filter by Status" value={statusFilter} options={statusOptions} onchange={handleFilterChange}></lightning-combobox>
+
+            <!-- Display Requests Table -->
+            <div class="slds-m-top_medium" style="height: 300px;">
+                <lightning-datatable
+                    key-field="Id"
+                    data={leaveRequests}
+                    columns={columns}
+                    hide-checkbox-column
+                    onrowaction={handleRowAction}>
+                </lightning-datatable>
+            </div>
+
+        </div>
+    </lightning-card>
+</template>
